@@ -29,7 +29,6 @@
 - The application shows a drawn out grid with the robot facing the commanded direction in the commanded place
 - The robot cannot go outside the 0 to 4 coordinates, commands that do so will be ignored
 - Commands that are entered and not followed exactly will be ignored. A message will display that mentions the invalid command.
--
 
 ### Log
 
