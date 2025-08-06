@@ -38,8 +38,8 @@ def listen_invalid_place_command(command)
 		invalid = true
 	end
 	begin
-		x = Integer(coordinates[0])
-		y = Integer(coordinates[1])
+		Integer(coordinates[0])
+		Integer(coordinates[1])
 	rescue ArgumentError
 		invalid = true
 	end
@@ -95,21 +95,23 @@ def draw_grid()
 	puts drawing
 end
 
-loop do
-	print "Command ('q' to quit) -> "
-	command = gets.chomp.strip
+if __FILE__ == $0
+	loop do
+		print "Command ('q' to quit) -> "
+		command = gets.chomp.strip
 
-	break if listen_quit(command)
-	next if listen_invalid_command(command)
-	if command.include?($PLACE)
-		next if listen_invalid_place_command(command)
-		set_direction_and_position(command)
+		break if listen_quit(command)
+		next if listen_invalid_command(command)
+		if command.include?($PLACE)
+			next if listen_invalid_place_command(command)
+			set_direction_and_position(command)
+		end
+		next if listen_wrong_command(command)
+		move_position() if command == $MOVE
+		set_direction(command) if command == $LEFT || command == $RIGHT
+
+		draw_grid()
+
+		puts "Output: #{$position[0]},#{$position[1]} #{$direction}" if command == $REPORT
 	end
-	next if listen_wrong_command(command)
-	move_position() if command == $MOVE
-	set_direction(command) if command == $LEFT || command == $RIGHT
-
-	draw_grid()
-
-	puts "Output: #{$position[0]},#{$position[1]} #{$direction}" if command == $REPORT
 end
